@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { importProvidersFrom, makeEnvironmentProviders } from '@angular/core';
 import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
@@ -9,9 +9,9 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocket } from 'ws';
 
-export const provideGraphql = () => {
+export function provideGraphql() {
   return makeEnvironmentProviders([
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     importProvidersFrom(ApolloModule),
     {
       provide: APOLLO_OPTIONS,
@@ -47,4 +47,4 @@ export const provideGraphql = () => {
       deps: [HttpLink],
     },
   ]);
-};
+}
